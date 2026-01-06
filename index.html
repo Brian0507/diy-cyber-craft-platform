@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY 賽博工藝平台 - 探索手作的無限可能</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arimo', -apple-system, Roboto, Helvetica, sans-serif;
+            background: #F5F1E8;
+            color: #6B5D52;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            padding: 16px 27.5px 8px;
+            background: #F5F1E8;
+            border-bottom: 2px solid #D4AF37;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navigation.scrolled {
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-title {
+            color: #8B7355;
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 400;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-button {
+            padding: 8px 16px;
+            background: #D4AF37;
+            color: #FFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+        }
+
+        .nav-button:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: #E8F0E5;
+            padding: 80px 27.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #D4AF37 0%, rgba(0, 0, 0, 0.00) 100%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 992px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            color: #8B7355;
+            font-size: 24px;
+            line-height: 36px;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-description {
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 27px;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-image-container {
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            overflow: hidden;
+            margin-bottom: 27px;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image-container:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            padding: 13px 12px 15px;
+            gap: 16px;
+            background: #D4AF37;
+            color: #FFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .hero-cta:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .hero-cta svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            padding: 64px 27.5px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #8B7355;
+            font-size: 20px;
+            line-height: 30px;
+            margin-bottom: 8px;
+        }
+
+        .section-description {
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #FFF;
+            border: 1px solid rgba(212, 175, 55, 0.10);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeIn 0.6s ease backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 176px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.1);
+        }
+
+        .card-header {
+            padding: 24px 24px 12px;
+        }
+
+        .card-title {
+            color: #5A5A4A;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 6px;
+        }
+
+        .card-description {
+            color: #7A7A6A;
+            font-size: 14px;
+            line-height: 21px;
+        }
+
+        .card-footer {
+            padding: 0 24px 24px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .card-button {
+            flex: 1;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+            border: none;
+        }
+
+        .card-button-primary {
+            background: #D4AF37;
+            color: #FFF;
+        }
+
+        .card-button-primary:hover {
+            background: #c29d2f;
+            transform: scale(1.05);
+        }
+
+        .card-button-secondary {
+            background: #FFF;
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.40);
+        }
+
+        .card-button-secondary:hover {
+            background: #FFF9E6;
+            border-color: #D4AF37;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #E8F0E5;
+            padding: 64px 27.5px;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 992px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            color: #8B7355;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 16px;
+        }
+
+        .cta-description {
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 32px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 8px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+            border: none;
+        }
+
+        .cta-button-primary {
+            background: #D4AF37;
+            color: #FFF;
+        }
+
+        .cta-button-primary:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .cta-button-secondary {
+            background: #FFF;
+            color: #8B7355;
+            border: 1px solid #D4AF37;
+        }
+
+        .cta-button-secondary:hover {
+            background: #FFF9E6;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #F5F1E8;
+            border-radius: 16px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #D4AF37;
+            color: #FFF;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: #c29d2f;
+            transform: rotate(90deg);
+        }
+
+        .detail-hero {
+            background: #E8F0E5;
+            padding: 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .detail-images {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-main-image {
+            width: 100%;
+            aspect-ratio: 248/189;
+            border-radius: 20px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .detail-main-image:hover {
+            transform: scale(1.02);
+        }
+
+        .detail-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .detail-thumbnail {
+            border-radius: 8px;
+            border: 2px solid #E8DCC8;
+            padding: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .detail-thumbnail.active {
+            border-color: #D4AF37;
+        }
+
+        .detail-thumbnail:hover {
+            border-color: #D4AF37;
+        }
+
+        .detail-thumbnail img {
+            width: 100%;
+            height: 96px;
+            object-fit: cover;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .detail-title {
+            color: #8B7355;
+            font-size: 24px;
+            line-height: 36px;
+        }
+
+        .detail-description {
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .detail-divider {
+            height: 1px;
+            background: #E8DCC8;
+        }
+
+        .detail-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .spec-item svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .detail-button {
+            flex: 1;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+            border: none;
+        }
+
+        .detail-button-primary {
+            background: #D4AF37;
+            color: #FFF;
+        }
+
+        .detail-button-primary:hover {
+            background: #c29d2f;
+        }
+
+        .detail-button-icon {
+            width: 42px;
+            padding: 8px;
+            background: #FFF;
+            border: 1px solid #D4AF37;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .detail-button-icon:hover {
+            background: #FFF9E6;
+        }
+
+        .detail-button-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .detail-note {
+            padding: 18px;
+            background: #FFF9E6;
+            border: 2px solid #D4AF37;
+            border-radius: 10px;
+            color: #8B7355;
+            font-size: 16px;
+            line-height: 24px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .steps-section {
+            padding: 48px;
+        }
+
+        .steps-container {
+            max-width: 896px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: #FFF;
+            border: 2px solid #E8DCC8;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: #D4AF37;
+            transform: translateX(8px);
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #D4AF37;
+            color: #FFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            color: #8B7355;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 8px;
+        }
+
+        .step-text {
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .inspiration-section {
+            background: #E8F0E5;
+            padding: 64px 27.5px;
+        }
+
+        .inspiration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1024px;
+            margin: 40px auto 0;
+        }
+
+        .inspiration-card {
+            background: #FFF;
+            border: 2px solid #E8DCC8;
+            border-radius: 14px;
+            padding: 26px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .inspiration-card:hover {
+            border-color: #D4AF37;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+        }
+
+        .inspiration-title {
+            color: #8B7355;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 16px;
+        }
+
+        .inspiration-description {
+            color: #6B5D52;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 16px;
+        }
+
+        .inspiration-button {
+            width: 100%;
+            padding: 8px 16px;
+            background: #FFF;
+            color: #8B7355;
+            border: 1px solid #D4AF37;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+        }
+
+        .inspiration-button:hover {
+            background: #FFF9E6;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-title {
+                font-size: 16px;
+            }
+
+            .nav-buttons {
+                gap: 8px;
+            }
+
+            .nav-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .hero-section {
+                padding: 40px 20px;
+            }
+
+            .hero-title {
+                font-size: 20px;
+            }
+
+            .hero-image {
+                height: 250px;
+            }
+
+            .featured-section {
+                padding: 40px 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-hero {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+
+            .steps-section {
+                padding: 24px;
+            }
+
+            .step-card {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 20px;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #D4AF37;
+            color: #FFF;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            background: #c29d2f;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation" id="navigation">
+        <div class="nav-container">
+            <h2 class="nav-title">DIY 賽博工藝平台</h2>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="scrollToSection('hero')">首頁</button>
+                <button class="nav-button" onclick="scrollToSection('featured')">靈感</button>
+                <button class="nav-button" onclick="scrollToSection('cta')">商店</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">DIY 蒸氣工藝平台</h1>
+            <p class="hero-description">探索手作的無限可能，從蒸氣龐克到自然美學，讓創意在指尖綻放</p>
+            <div class="hero-image-container">
+                <img class="hero-image" src="https://api.builder.io/api/v1/image/assets/TEMP/bb7a0d644497b90c4503b50708ed40099590af0d?width=1532" alt="機械手設計" />
+            </div>
+            <button class="hero-cta" onclick="scrollToSection('featured')">
+                <span>探索詳細教程</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.33331 8H12.6666" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 3.33331L12.6667 7.99998L8 12.6666" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured-section" id="featured">
+        <div class="section-header">
+            <h2 class="section-title">精選創作</h2>
+            <p class="section-description">發現更多手作靈感，開啟你的創意之旅</p>
+        </div>
+        <div class="cards-grid">
+            <div class="card" onclick="openModal('機械手設計圖')">
+                <img class="card-image" src="https://api.builder.io/api/v1/image/assets/TEMP/de3727e119d8479a490ea9d7a1bf434c0b2507e2?width=631" alt="機械手設計圖" />
+                <div class="card-header">
+                    <h3 class="card-title">機械手設計圖</h3>
+                    <p class="card-description">工業風格精密設計圖紙</p>
+                </div>
+                <div class="card-footer">
+                    <button class="card-button card-button-primary">詳情</button>
+                    <button class="card-button card-button-secondary">材料</button>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal('木質機器人檯燈')">
+                <img class="card-image" src="https://api.builder.io/api/v1/image/assets/TEMP/698d9280764506007593c68d3c08ce541a7c5ad0?width=631" alt="木質機器人檯燈" />
+                <div class="card-header">
+                    <h3 class="card-title">木質機器人檯燈</h3>
+                    <p class="card-description">創意木工與現代照明結合</p>
+                </div>
+                <div class="card-footer">
+                    <button class="card-button card-button-primary">詳情</button>
+                    <button class="card-button card-button-secondary">材料</button>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal('拼裝木質地球儀')">
+                <img class="card-image" src="https://api.builder.io/api/v1/image/assets/TEMP/4178f260197efd790d88080aa9e9faa3213a2774?width=631" alt="拼裝木質地球儀" />
+                <div class="card-header">
+                    <h3 class="card-title">拼裝木質地球儀</h3>
+                    <p class="card-description">精細雕刻的世界地圖模型</p>
+                </div>
+                <div class="card-footer">
+                    <button class="card-button card-button-primary">詳情</button>
+                    <button class="card-button card-button-secondary">材料</button>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal('蒸汽龐克藝術')">
+                <img class="card-image" src="https://api.builder.io/api/v1/image/assets/TEMP/e54f06b47a1c3f7126dc8e8136d4379488b28318?width=631" alt="蒸汽龐克藝術" />
+                <div class="card-header">
+                    <h3 class="card-title">蒸汽龐克藝術</h3>
+                    <p class="card-description">金屬齒輪與玻璃球的奇幻組合</p>
+                </div>
+                <div class="card-footer">
+                    <button class="card-button card-button-primary">詳情</button>
+                    <button class="card-button card-button-secondary">材料</button>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal('互動葉貼藝術')">
+                <img class="card-image" src="https://api.builder.io/api/v1/image/assets/TEMP/f7b1145166c131f986dc3ab978b0a2ae883c24f9?width=631" alt="互動葉貼藝術" />
+                <div class="card-header">
+                    <h3 class="card-title">互動葉貼藝術</h3>
+                    <p class="card-description">木框綠葉手作創意體驗</p>
+                </div>
+                <div class="card-footer">
+                    <button class="card-button card-button-primary">詳情</button>
+                    <button class="card-button card-button-secondary">材料</button>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal('創意燈具系列')">
+                <img class="card-image" src="https://api.builder.io/api/v1/image/assets/TEMP/698d9280764506007593c68d3c08ce541a7c5ad0?width=631" alt="創意燈具系列" />
+                <div class="card-header">
+                    <h3 class="card-title">創意燈具系列</h3>
+                    <p class="card-description">多款可調式木質燈具</p>
+                </div>
+                <div class="card-footer">
+                    <button class="card-button card-button-primary">詳情</button>
+                    <button class="card-button card-button-secondary">材料</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">開始你的創作</h2>
+            <p class="cta-description">從材料選購到完成作品，我們陪伴你的每一步創作旅程</p>
+            <div class="cta-buttons">
+                <button class="cta-button cta-button-primary" onclick="scrollToSection('featured')">選購材料</button>
+                <button class="cta-button cta-button-secondary" onclick="scrollToSection('featured')">瀏覽靈感</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            
+            <div class="detail-hero">
+                <div class="detail-images">
+                    <img id="mainImage" class="detail-main-image" src="https://api.builder.io/api/v1/image/assets/TEMP/8ef151b98f230ec45651371b337dfd13e5b33fca?width=992" alt="木質飛船模型" onclick="expandImage()" />
+                    <div class="detail-thumbnails">
+                        <div class="detail-thumbnail active" onclick="changeImage(0)">
+                            <img src="https://api.builder.io/api/v1/image/assets/TEMP/8cf2e440324f3af293cae7276e1e778078c6072c?width=296" alt="縮圖 1" />
+                        </div>
+                        <div class="detail-thumbnail" onclick="changeImage(1)">
+                            <img src="https://api.builder.io/api/v1/image/assets/TEMP/ef8334f48783a6b80b3dd43e90f9aeecf1f98fac?width=296" alt="縮圖 2" />
+                        </div>
+                        <div class="detail-thumbnail" onclick="changeImage(2)">
+                            <img src="https://api.builder.io/api/v1/image/assets/TEMP/ffc5ab1680d19699432b415f0704ce2bba6cde56?width=296" alt="縮圖 3" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-info">
+                    <h1 class="detail-title">木質飛船模型</h1>
+                    <p class="detail-description">這款精緻的木質飛船模型融合了傳統工藝與未來科技美學，每一個零件都經過精密切割，讓你在組裝過程中享受手作的樂趣，同時創造出獨一無二的藝術品。</p>
+                    
+                    <div class="detail-divider"></div>
+                    
+                    <div class="detail-specs">
+                        <div class="spec-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="#D4AF37" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>難度等級：中級</span>
+                        </div>
+                        <div class="spec-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="#D4AF37" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>預計時間：3-4 小時</span>
+                        </div>
+                        <div class="spec-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="#D4AF37" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>完成尺寸：18 x 12 x 8 cm</span>
+                        </div>
+                        <div class="spec-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="#D4AF37" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>材質：優質椴木 + 金屬配件</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-divider"></div>
+                    
+                    <div class="detail-actions">
+                        <button class="detail-button detail-button-primary">購買材料包</button>
+                        <button class="detail-button-icon">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.33325 6.33332C1.33327 5.59145 1.55831 4.86704 1.97867 4.25576C2.39903 3.64448 2.99493 3.17509 3.68766 2.90959C4.38039 2.64408 5.13736 2.59495 5.85859 2.76868C6.57983 2.94242 7.2314 3.33084 7.72725 3.88265C7.76218 3.92 7.8044 3.94977 7.8513 3.97012C7.89821 3.99047 7.94879 4.00098 7.99992 4.00098C8.05105 4.00098 8.10163 3.99047 8.14853 3.97012C8.19544 3.94977 8.23766 3.92 8.27259 3.88265C8.76688 3.32725 9.4186 2.93556 10.141 2.75972C10.8634 2.58388 11.6222 2.63222 12.3165 2.89831C13.0108 3.1644 13.6075 3.63562 14.0273 4.24925C14.4471 4.86289 14.6701 5.58983 14.6666 6.33332C14.6666 7.85999 13.6666 8.99999 12.6666 9.99999L9.00525 13.542C8.88103 13.6847 8.72787 13.7993 8.55595 13.8782C8.38403 13.9571 8.19728 13.9986 8.00811 13.9997C7.81894 14.0009 7.63168 13.9619 7.45878 13.8851C7.28587 13.8084 7.13127 13.6957 7.00525 13.5547L3.33325 9.99999C2.33325 8.99999 1.33325 7.86665 1.33325 6.33332Z" stroke="#8B7355" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="detail-button-icon">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 5.33334C13.1046 5.33334 14 4.43791 14 3.33334C14 2.22877 13.1046 1.33334 12 1.33334C10.8954 1.33334 10 2.22877 10 3.33334C10 4.43791 10.8954 5.33334 12 5.33334Z" stroke="#8B7355" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 10C5.10457 10 6 9.10457 6 8C6 6.89543 5.10457 6 4 6C2.89543 6 2 6.89543 2 8C2 9.10457 2.89543 10 4 10Z" stroke="#8B7355" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 14.6667C13.1046 14.6667 14 13.7712 14 12.6667C14 11.5621 13.1046 10.6667 12 10.6667C10.8954 10.6667 10 11.5621 10 12.6667C10 13.7712 10.8954 14.6667 12 14.6667Z" stroke="#8B7355" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5.72656 9.00665L10.2799 11.66" stroke="#8B7355" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10.2732 4.34L5.72656 6.99333" stroke="#8B7355" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="detail-note">
+                        "手作不只是完成一件作品，更是一段與自己對話的療癒旅程。"
+                    </div>
+                </div>
+            </div>
+
+            <div class="steps-section">
+                <div class="steps-container">
+                    <div class="section-header">
+                        <h2 class="section-title">組裝教程</h2>
+                        <p class="section-description">跟著步驟，輕鬆完成你的作品</p>
+                    </div>
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3 class="step-title">準備零件</h3>
+                                <p class="step-text">仔細檢查所有木質零件，確保完整無損。準備工具：砂紙、木工膠、小刀。</p>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3 class="step-title">組裝結構</h3>
+                                <p class="step-text">按照編號順序組裝主體結構，使用木工膠固定連接處。</p>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3 class="step-title">細節打磨</h3>
+                                <p class="step-text">用細砂紙輕輕打磨接縫處，確保表面平滑。</p>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3 class="step-title">裝飾配件</h3>
+                                <p class="step-text">安裝賽博龐克風格的裝飾零件，如燈光組件、金屬配件等。</p>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h3 class="step-title">最終調整</h3>
+                                <p class="step-text">檢查所有連接點，進行最後的細節調整和塗裝（可選）。</p>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h3 class="step-title">完工展示</h3>
+                                <p class="step-text">你的賽博龐克飛船已經完成！拍照分享你的作品吧。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inspiration-section">
+                <div class="section-header">
+                    <h2 class="section-title">延伸創作靈感</h2>
+                    <p class="section-description">探索更多可能性，讓創意持續發酵</p>
+                </div>
+                <div class="inspiration-grid">
+                    <div class="inspiration-card">
+                        <h3 class="inspiration-title">微縮模型場景</h3>
+                        <p class="inspiration-description">打造一個完整的微縮場景</p>
+                        <button class="inspiration-button">了解更多</button>
+                    </div>
+                    <div class="inspiration-card">
+                        <h3 class="inspiration-title">LED燈光改造</h3>
+                        <p class="inspiration-description">為你的飛船添加動態燈光效果</p>
+                        <button class="inspiration-button">了解更多</button>
+                    </div>
+                    <div class="inspiration-card">
+                        <h3 class="inspiration-title">塗裝技巧</h3>
+                        <p class="inspiration-description">學習金屬質感與霓虹燈效果的塗裝方法</p>
+                        <button class="inspiration-button">了解更多</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navigation');
+            const scrollTop = document.getElementById('scrollTop');
+            
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const offset = 70;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Modal functions
+        function openModal(title) {
+            const modal = document.getElementById('modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnBackdrop(event) {
+            if (event.target.id === 'modal') {
+                closeModal();
+            }
+        }
+
+        // Image gallery
+        const images = [
+            'https://api.builder.io/api/v1/image/assets/TEMP/8cf2e440324f3af293cae7276e1e778078c6072c?width=992',
+            'https://api.builder.io/api/v1/image/assets/TEMP/ef8334f48783a6b80b3dd43e90f9aeecf1f98fac?width=992',
+            'https://api.builder.io/api/v1/image/assets/TEMP/ffc5ab1680d19699432b415f0704ce2bba6cde56?width=992'
+        ];
+
+        function changeImage(index) {
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.detail-thumbnail');
+            
+            mainImage.src = images[index];
+            
+            thumbnails.forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+
+        function expandImage() {
+            const mainImage = document.getElementById('mainImage');
+            window.open(mainImage.src, '_blank');
+        }
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
